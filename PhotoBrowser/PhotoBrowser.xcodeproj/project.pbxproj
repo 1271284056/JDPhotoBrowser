@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		152DFEFB1EA5C08C00617E42 /* JDPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152DFEF71EA5C08C00617E42 /* JDPhotoBrowser.swift */; };
+		152DFEFC1EA5C08C00617E42 /* JDPhotoBrowserAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152DFEF81EA5C08C00617E42 /* JDPhotoBrowserAnimator.swift */; };
+		152DFEFD1EA5C08C00617E42 /* JDPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152DFEF91EA5C08C00617E42 /* JDPhotoBrowserCell.swift */; };
+		152DFEFE1EA5C08C00617E42 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152DFEFA1EA5C08C00617E42 /* UIView+Extension.swift */; };
 		1562AF3B1E9E1DF500D4DC40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562AF3A1E9E1DF500D4DC40 /* AppDelegate.swift */; };
 		1562AF3D1E9E1DF500D4DC40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562AF3C1E9E1DF500D4DC40 /* ViewController.swift */; };
 		1562AF421E9E1DF500D4DC40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1562AF411E9E1DF500D4DC40 /* Assets.xcassets */; };
 		1562AF451E9E1DF500D4DC40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1562AF431E9E1DF500D4DC40 /* LaunchScreen.storyboard */; };
 		1562AF501E9E1DF600D4DC40 /* PhotoBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562AF4F1E9E1DF600D4DC40 /* PhotoBrowserTests.swift */; };
-		1562AF5E1E9E1FAC00D4DC40 /* JDPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562AF5C1E9E1FAC00D4DC40 /* JDPhotoBrowser.swift */; };
-		1562AF5F1E9E1FAC00D4DC40 /* JDPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562AF5D1E9E1FAC00D4DC40 /* JDPhotoBrowserCell.swift */; };
-		1562AF631E9E204E00D4DC40 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562AF611E9E204E00D4DC40 /* UIView+Extension.swift */; };
-		1562AF651E9E266B00D4DC40 /* JDPhotoBrowserAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562AF641E9E266B00D4DC40 /* JDPhotoBrowserAnimator.swift */; };
 		F34063FBD0E04EF287CF3EA9 /* Pods_PhotoBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF32D22D91A373685D2FD1A9 /* Pods_PhotoBrowser.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +31,10 @@
 
 /* Begin PBXFileReference section */
 		0FF7D72697890CEC5E223D9B /* Pods-PhotoBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBrowser/Pods-PhotoBrowser.release.xcconfig"; sourceTree = "<group>"; };
+		152DFEF71EA5C08C00617E42 /* JDPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JDPhotoBrowser.swift; sourceTree = "<group>"; };
+		152DFEF81EA5C08C00617E42 /* JDPhotoBrowserAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JDPhotoBrowserAnimator.swift; sourceTree = "<group>"; };
+		152DFEF91EA5C08C00617E42 /* JDPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JDPhotoBrowserCell.swift; sourceTree = "<group>"; };
+		152DFEFA1EA5C08C00617E42 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		1562AF371E9E1DF500D4DC40 /* PhotoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1562AF3A1E9E1DF500D4DC40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1562AF3C1E9E1DF500D4DC40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,10 +44,6 @@
 		1562AF4B1E9E1DF600D4DC40 /* PhotoBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1562AF4F1E9E1DF600D4DC40 /* PhotoBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserTests.swift; sourceTree = "<group>"; };
 		1562AF511E9E1DF600D4DC40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1562AF5C1E9E1FAC00D4DC40 /* JDPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JDPhotoBrowser.swift; sourceTree = "<group>"; };
-		1562AF5D1E9E1FAC00D4DC40 /* JDPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JDPhotoBrowserCell.swift; sourceTree = "<group>"; };
-		1562AF611E9E204E00D4DC40 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		1562AF641E9E266B00D4DC40 /* JDPhotoBrowserAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JDPhotoBrowserAnimator.swift; sourceTree = "<group>"; };
 		76DC3BEC3A547447B54C32AA /* Pods-PhotoBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBrowser/Pods-PhotoBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		FF32D22D91A373685D2FD1A9 /* Pods_PhotoBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -67,6 +67,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		152DFEF61EA5C08C00617E42 /* JDPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				152DFEF71EA5C08C00617E42 /* JDPhotoBrowser.swift */,
+				152DFEF81EA5C08C00617E42 /* JDPhotoBrowserAnimator.swift */,
+				152DFEF91EA5C08C00617E42 /* JDPhotoBrowserCell.swift */,
+				152DFEFA1EA5C08C00617E42 /* UIView+Extension.swift */,
+			);
+			path = JDPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		1562AF2E1E9E1DF500D4DC40 = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +101,7 @@
 		1562AF391E9E1DF500D4DC40 /* PhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				1562AF661E9E267300D4DC40 /* JDBrowser */,
+				152DFEF61EA5C08C00617E42 /* JDPhotoBrowser */,
 				1562AF3A1E9E1DF500D4DC40 /* AppDelegate.swift */,
 				1562AF3C1E9E1DF500D4DC40 /* ViewController.swift */,
 				1562AF411E9E1DF500D4DC40 /* Assets.xcassets */,
@@ -107,17 +118,6 @@
 				1562AF511E9E1DF600D4DC40 /* Info.plist */,
 			);
 			path = PhotoBrowserTests;
-			sourceTree = "<group>";
-		};
-		1562AF661E9E267300D4DC40 /* JDBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				1562AF611E9E204E00D4DC40 /* UIView+Extension.swift */,
-				1562AF5C1E9E1FAC00D4DC40 /* JDPhotoBrowser.swift */,
-				1562AF5D1E9E1FAC00D4DC40 /* JDPhotoBrowserCell.swift */,
-				1562AF641E9E266B00D4DC40 /* JDPhotoBrowserAnimator.swift */,
-			);
-			name = JDBrowser;
 			sourceTree = "<group>";
 		};
 		3AA0A4CC7DF9934941BE52EA /* Frameworks */ = {
@@ -292,12 +292,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1562AF651E9E266B00D4DC40 /* JDPhotoBrowserAnimator.swift in Sources */,
-				1562AF631E9E204E00D4DC40 /* UIView+Extension.swift in Sources */,
-				1562AF5E1E9E1FAC00D4DC40 /* JDPhotoBrowser.swift in Sources */,
-				1562AF5F1E9E1FAC00D4DC40 /* JDPhotoBrowserCell.swift in Sources */,
+				152DFEFE1EA5C08C00617E42 /* UIView+Extension.swift in Sources */,
 				1562AF3D1E9E1DF500D4DC40 /* ViewController.swift in Sources */,
 				1562AF3B1E9E1DF500D4DC40 /* AppDelegate.swift in Sources */,
+				152DFEFC1EA5C08C00617E42 /* JDPhotoBrowserAnimator.swift in Sources */,
+				152DFEFB1EA5C08C00617E42 /* JDPhotoBrowser.swift in Sources */,
+				152DFEFD1EA5C08C00617E42 /* JDPhotoBrowserCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
