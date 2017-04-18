@@ -71,8 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				152DFEF71EA5C08C00617E42 /* JDPhotoBrowser.swift */,
-				152DFEF81EA5C08C00617E42 /* JDPhotoBrowserAnimator.swift */,
 				152DFEF91EA5C08C00617E42 /* JDPhotoBrowserCell.swift */,
+				152DFEF81EA5C08C00617E42 /* JDPhotoBrowserAnimator.swift */,
 				152DFEFA1EA5C08C00617E42 /* UIView+Extension.swift */,
 			);
 			path = JDPhotoBrowser;
