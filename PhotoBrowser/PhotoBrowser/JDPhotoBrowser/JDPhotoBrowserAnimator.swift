@@ -134,9 +134,9 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         let imageSize = sourceImageView?.image?.size
         let imageW = imageSize?.width
         let imageH = imageSize?.height
-        let actualImageW = kJDScreenWidth - 6
+        let actualImageW = kJDScreenWidth
         let actualImageH = actualImageW/imageW! * imageH!
-        imageRect = CGRect(x: 3, y: (kJDScreenHeight - actualImageH)/2, width: actualImageW, height: actualImageH)
+        imageRect = CGRect(x: 0, y: (kJDScreenHeight - actualImageH)/2, width: actualImageW, height: actualImageH)
     }
     
     //消失动画
@@ -145,7 +145,6 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         //上一级view
         let dismissView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
         let dismissVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! JDPhotoBrowser
-        
         
         
         
@@ -163,7 +162,6 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             if self.endImageView == nil{
                 snapView?.frame = imageRect
             }else{
-                
                 
                 var theFrame: CGRect = (self.endImageView?.convert((self.endImageView?.bounds)!, to: self.endImageView?.getCurrentVc()?.view))!
                 

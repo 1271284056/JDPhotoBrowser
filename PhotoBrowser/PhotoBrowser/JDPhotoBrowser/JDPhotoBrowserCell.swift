@@ -9,7 +9,12 @@
 import UIKit
 import SDWebImage
 
-var imageRect = CGRect(x: 3 , y:0, width: kJDScreenWidth - 6 , height:  kJDScreenWidth )
+var imageRect = CGRect(x: 0 , y:(kJDScreenHeight - kJDScreenWidth)/2, width: kJDScreenWidth  , height:  kJDScreenWidth )
+
+
+
+var baseImageRect = CGRect(x: 0 , y:(kJDScreenHeight - kJDScreenWidth*1.3)/2, width: kJDScreenWidth  , height:  kJDScreenWidth*1.3)
+
 
 class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UIScrollViewDelegate{
     
@@ -26,34 +31,43 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         }
     }
     
+    
+    
     var imageUrl: String?{
         didSet{
+            
+            
+            if self.backImg.x == 0 && self.backImg.y == 0 {
+                self.backImg.frame = baseImageRect
+            }
+            
             self.cellPhotoBrowserAnimator?.isImageDone = false
             self.isImageDone = false
-            self.scrollView.setZoomScale(1, animated: true)
             
-            self.backImg.sd_setImage(with: URL(string: imageUrl!), placeholderImage: placeImage, options: .highPriority, progress: { (receive, all, _) in
-          
+            self.backImg.sd_setImage(with: URL(string: imageUrl!), placeholderImage: placeImage, options: .progressiveDownload, progress: { (receive, all, _) in
+                print("self.backImg.frame-->",self.backImg.frame)
+                
             }) { (image, _, _, _) in
+                
                 self.getImageSize(image: image!)
             }
-                        
+            
         }
     }
-
+    
     //大图尺寸
     func getImageSize(image: UIImage){
-
+        
         self.isImageDone = true
         self.cellPhotoBrowserAnimator?.isImageDone = true
-
+        
         let imageSize = image.size
         let imageW = imageSize.width
         let imageH = imageSize.height
-        let actualImageW = kJDScreenWidth - 6
+        let actualImageW = kJDScreenWidth
         let actualImageH = actualImageW/imageW * imageH
-        imageRect = CGRect(x: 3, y: (kJDScreenHeight - actualImageH)/2, width: actualImageW, height: actualImageH)
-
+        imageRect = CGRect(x: 0, y: (kJDScreenHeight - actualImageH)/2, width: actualImageW, height: actualImageH)
+        
         self.scrollView.frame = imageRect
         self.scrollView.contentSize = CGSize(width: imageRect.size.width, height: imageRect.size.height)
         backImg.frame = CGRect(x: 0, y: 0, width: imageRect.size.width, height: imageRect.size.height)
@@ -64,9 +78,11 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         super.init(frame: frame)
         self.backgroundColor = UIColor.black
         self.contentView.addSubview(scrollView)
+        scrollView.frame = CGRect(x: 0, y: 0, width: kJDScreenWidth, height: kJDScreenWidth)
+        backImg.frame = CGRect(x: 0, y: 0, width: kJDScreenWidth, height: kJDScreenWidth)
         scrollView.addSubview(backImg)
         scrollView.delegate = self
-        backImg.image = placeImage
+        //        backImg.image = placeImage
         addGesture()
     }
     
@@ -110,23 +126,25 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     @objc private func backImgTap1(recognizer: UITapGestureRecognizer){
         let backImageVi = recognizer.view as! UIImageView
         backImageVi.getCurrentVc()?.dismiss(animated: true, completion: nil)
+        UIApplication.shared.isStatusBarHidden = false
+        
     }
     
     //双击
     @objc private func backImgTap2(recognizer: UITapGestureRecognizer){
         let backImageVi = recognizer.view as! UIImageView
         let touchPoint = recognizer.location(in: backImageVi)
-
+        
         UIView.animate(withDuration: 0.25) {
-        if backImageVi.width > imageRect.width{
-            let zoomRect = self.zoomRectFor(scale: 1, center: touchPoint)
-            self.scrollView.zoom(to:zoomRect, animated: true)
-            self.scrollView.layoutIfNeeded()
-        }else{
-            let zoomRect = self.zoomRectFor(scale: 2, center: touchPoint)
-            self.scrollView.zoom(to:zoomRect, animated: true)
-            self.scrollView.layoutIfNeeded()
-        }
+            if backImageVi.width > imageRect.width{
+                let zoomRect = self.zoomRectFor(scale: 1, center: touchPoint)
+                self.scrollView.zoom(to:zoomRect, animated: true)
+                self.scrollView.layoutIfNeeded()
+            }else{
+                let zoomRect = self.zoomRectFor(scale: 2, center: touchPoint)
+                self.scrollView.zoom(to:zoomRect, animated: true)
+                self.scrollView.layoutIfNeeded()
+            }
         }
     }
     
@@ -155,7 +173,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0)
         zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
         return zoomRect;
-        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -198,23 +216,24 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         img.isUserInteractionEnabled = true
         img.contentMode = .scaleAspectFit
         img.backgroundColor = UIColor.black
-        img.frame = imageRect
-        img.image = UIImage(named: "default_image")
+        img.frame = baseImageRect
+        img.image = UIImage(named: "blackall")
         return img
     }()
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor.black
         scrollView.maximumZoomScale=3;
-        scrollView.frame = imageRect
+        scrollView.frame = baseImageRect
         scrollView.minimumZoomScale = 1;
         scrollView.setZoomScale(1, animated: false)
         return scrollView
     }()
     
     lazy var  placeImage: UIImage = {
-        let image = UIImage(named: "default_image")
+        let image = UIImage(named: "blackall")
+        
         return image!
     }()
-
+    
 }
