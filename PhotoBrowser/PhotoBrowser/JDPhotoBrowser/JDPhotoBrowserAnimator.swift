@@ -116,6 +116,10 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             let indexPath = IndexPath(item: self.currentPage, section: 0)
             guard  presentedVc.collectionView.cellForItem(at: indexPath) != nil else { return }
             let cell = presentedVc.collectionView.cellForItem(at: indexPath) as! JDPhotoBrowserCell
+            
+            //            cell.scrollView.frame = imageRect
+            //            cell.backImg.frame = CGRect(x: 0, y: 0, width: imageRect.size.width, height: imageRect.size.height)
+            
             self.isImageDone = cell.isImageDone
             
             presentedView.alpha = 1.0
@@ -165,7 +169,7 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
                 
                 var theFrame: CGRect = (self.endImageView?.convert((self.endImageView?.bounds)!, to: self.endImageView?.getCurrentVc()?.view))!
                 
-                if self.endImageView?.getCurrentVc()?.navigationController != nil{
+                if self.endImageView?.getCurrentVc()?.navigationController != nil && self.endImageView?.getCurrentVc()?.navigationController?.navigationBar.isTranslucent == false{
                     theFrame = CGRect(x: theFrame.origin.x, y: theFrame.origin.y + 64, width: theFrame.size.width, height: theFrame.size.height)
                 }
                 

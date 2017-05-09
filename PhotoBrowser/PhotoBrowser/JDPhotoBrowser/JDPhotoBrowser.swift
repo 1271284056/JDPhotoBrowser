@@ -7,27 +7,43 @@
 //  邮箱 1271284056@qq.com  简书 http://www.jianshu.com/u/5e7182f9e694
 
 import UIKit
+import Photos
 
-fileprivate let resuId = "ZJPhotoBrowserId"
 
-let kJDScreenWidth = UIScreen.main.bounds.size.width
-let kJDScreenHeight = UIScreen.main.bounds.size.height
+fileprivate let jdkresuId = "kJDPhotoBrowserId"
+
 
 class JDPhotoBrowser: UIViewController {
+    
+    
+    var isViewAppeared: Bool = false
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        isViewAppeared = true
+    }
+    
+    //    override var prefersStatusBarHidden: Bool{
+    //        return true
+    //    }
+    //
     
     enum imageSourceType {
         case image
         case url
+        case asserts
     }
     ///图片的url字符串数组
     var urls:[String]?
     var images: [UIImage]?
+    var asserts: [PHAsset]?
+    
     //传回当前浏览器图片索引
     var endPageIndexClosure: (( _ index: Int)->())?
     var imageSourceTp: imageSourceType = .image
     var deleteButtonClosure: (( _ index: Int)->())?  //点击删除按钮时index
     private lazy var indexLabel = UILabel()
-
+    
     var sourceImageView: UIImageView?{
         didSet{
             photoBrowserAnimator.sourceImageView = sourceImageView
@@ -40,20 +56,24 @@ class JDPhotoBrowser: UIViewController {
             photoBrowserAnimator.endImageView = endImageView
         }
     } // 消失时候imageview
+    
     ///静止后选中照片的索引
     var currentPage : Int?{
         didSet{
             if self.imageSourceTp == .image {
                 guard let kcount  = images?.count else { return  }
                 indexLabel.text = "\(currentPage! + 1)/\(kcount)"
-            }else{
+            }else if self.imageSourceTp == .url{
                 guard let kcount  = urls?.count else { return  }
+                indexLabel.text = "\(currentPage! + 1)/\(kcount)"
+            }else if self.imageSourceTp == .asserts{
+                guard let kcount  = asserts?.count else { return  }
                 indexLabel.text = "\(currentPage! + 1)/\(kcount)"
             }
         }
     }
     
-    //使用方法
+    //1 url
     init(selectIndex: Int, urls: [String]) {
         super.init(nibName: nil, bundle: nil)
         self.currentPage = selectIndex
@@ -63,7 +83,7 @@ class JDPhotoBrowser: UIViewController {
         self.transitioningDelegate = photoBrowserAnimator
     }
     
-    //第一个0
+    //2 image 第一个0
     init(selectIndex: Int, images: [UIImage]) {
         super.init(nibName: nil, bundle: nil)
         self.currentPage = selectIndex
@@ -73,7 +93,19 @@ class JDPhotoBrowser: UIViewController {
         self.transitioningDelegate = photoBrowserAnimator
     }
     
+    //3 相册
+    init(selectIndex: Int, asserts: [PHAsset]) {
+        super.init(nibName: nil, bundle: nil)
+        self.currentPage = selectIndex
+        self.asserts = asserts
+        self.imageSourceTp = .asserts
+        self.modalPresentationStyle = .custom
+        self.transitioningDelegate = photoBrowserAnimator
+    }
+    
     lazy var collectionView: UICollectionView = {
+        UIApplication.shared.isStatusBarHidden = true
+        
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: kJDScreenWidth , height: kJDScreenHeight )
         layout.minimumInteritemSpacing = 0
@@ -81,7 +113,7 @@ class JDPhotoBrowser: UIViewController {
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: kJDScreenWidth, height: kJDScreenHeight ), collectionViewLayout: layout)
-        collectionView.register(JDPhotoBrowserCell.self, forCellWithReuseIdentifier: resuId)
+        collectionView.register(JDPhotoBrowserCell.self, forCellWithReuseIdentifier: jdkresuId)
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = UIColor.black
@@ -98,29 +130,43 @@ class JDPhotoBrowser: UIViewController {
         self.view.backgroundColor = UIColor.black
         self.view.addSubview(collectionView)
         let indexPath = IndexPath(item: currentPage!, section: 0)
-
+        
         DispatchQueue.main.async {
-            self.collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+            
+            if indexPath.row <= ((self.images?.count ?? 0) - 1) || indexPath.row <= ((self.urls?.count ?? 0) - 1) || indexPath.row <= ((self.asserts?.count ?? 0) - 1){
+                
+                self.collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+            }
         }
         
         photoBrowserAnimator.currentPage = currentPage!
-        deleteBtn.frame = CGRect(x: kJDScreenWidth - 100, y: kJDScreenHeight - 60, width: 60, height: 40)
-        deleteBtn.backgroundColor = UIColor.red
-//        self.view.addSubview(deleteBtn)
+        deleteBtn.frame = CGRect(x: kJDScreenWidth - 45, y: 30, width: 30, height: 30)
+        deleteBtn.setBackgroundImage(UIImage(named: "delete"), for: .normal)
+        //        self.view.addSubview(deleteBtn)
         deleteBtn.addTarget(self, action: #selector(delete(btn:)), for: .touchUpInside)
         
         self.view.addSubview(indexLabel)
         indexLabel.backgroundColor = UIColor.black
         indexLabel.textColor = UIColor.white
         indexLabel.textAlignment = .center
-        indexLabel.frame = CGRect(x: 0, y: deleteBtn.y, width: 50, height: 30)
+        indexLabel.frame = CGRect(x: 0, y: kJDScreenHeight - 40, width: 50, height: 30)
         indexLabel.centerX = kJDScreenWidth * 0.5
+        
+        
+        saveBtn.frame = CGRect(x: kJDScreenWidth - 80, y: indexLabel.y, width: 50, height: 50)
+        saveBtn.addTarget(self, action: #selector(saveImg), for: .touchUpInside)
+        //        self.view.addSubview(saveBtn)
+        
+        
         
         if  self.imageSourceTp == .image{
             guard let kcount  = images?.count else { return  }
             indexLabel.text = "\(currentPage! + 1)/\(kcount)"
-         }else{
+        }else if  self.imageSourceTp == .url{
             guard let kcount  = urls?.count else { return  }
+            indexLabel.text = "\(currentPage! + 1)/\(kcount)"
+        }else if  self.imageSourceTp == .asserts{
+            guard let kcount  = asserts?.count else { return  }
             indexLabel.text = "\(currentPage! + 1)/\(kcount)"
         }
     }
@@ -140,29 +186,68 @@ class JDPhotoBrowser: UIViewController {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         return btn
     }()
-
+    
+    private lazy var saveBtn : UIButton = {
+        let btn: UIButton = UIButton()
+        btn.size = CGSize(width: 50, height: 50)
+        btn.setBackGroundColor(color: UIColor.red, type: .normal)
+        btn.setTitleColor(UIColor.red, for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        return btn
+    }()
+    
+    
+    @objc private func saveImg(){
+        let indexPath = IndexPath(item: currentPage!, section: 0)
+        let cell = self.collectionView.cellForItem(at: indexPath) as! JDPhotoBrowserCell
+        
+        self.saveImageToPhotoAlbum1(saveImage: cell.backImg.image!)
+    }
+    
+    //保存照片
+    func saveImageToPhotoAlbum1(saveImage: UIImage){
+        UIImageWriteToSavedPhotosAlbum(saveImage, self, #selector(saveImageToo(image:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    func saveImageToo(image:UIImage,didFinishSavingWithError error:NSError?,contextInfo:AnyObject) {
+        if error != nil {
+            return
+        } else {
+            //   SVProgressHUD.showSuccess(withStatus: "保存成功")
+        }
+        
+        
+    }
+    
+    
+    
 }
 
 extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        
         if self.imageSourceTp == .image {
             return (self.images?.count)!
-        }else{
+        }else if self.imageSourceTp == .url{
             return (self.urls?.count)!
+        }else {
+            return (self.asserts?.count)!
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resuId, for: indexPath as IndexPath) as! JDPhotoBrowserCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: jdkresuId, for: indexPath as IndexPath) as! JDPhotoBrowserCell
         
         cell.cellPhotoBrowserAnimator = photoBrowserAnimator
         
         if self.imageSourceTp == .image {
             cell.image = self.images?[indexPath.item]
-        }else{
+        }else if self.imageSourceTp == .url{
             cell.imageUrl = self.urls?[indexPath.item]
+        }else{
+            cell.assert = self.asserts?[indexPath.item]
+            
         }
         return cell
     }
@@ -170,7 +255,7 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
         currentPage  = Int(scrollView.contentOffset.x / scrollView.width)
         photoBrowserAnimator.currentPage = currentPage!

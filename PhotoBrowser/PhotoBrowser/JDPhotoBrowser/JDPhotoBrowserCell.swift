@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 import SDWebImage
 
 var imageRect = CGRect(x: 0 , y:(kJDScreenHeight - kJDScreenWidth)/2, width: kJDScreenWidth  , height:  kJDScreenWidth )
@@ -31,21 +32,33 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         }
     }
     
+    var assert: PHAsset?{
+        didSet{
+            self.getOrangeImage(asset: assert!) { (image) in
+                self.backImg.image = image
+                self.getImageSize(image: image!)
+                
+            }
+            
+        }
+    }
     
     
     var imageUrl: String?{
         didSet{
             
-            
-            if self.backImg.x == 0 && self.backImg.y == 0 {
-                self.backImg.frame = baseImageRect
+            //            print("scrollView",self.scrollView.y)
+            if self.scrollView.x == 0 && self.scrollView.y == 0 {
+                self.scrollView.frame = baseImageRect
+                backImg.frame = CGRect(x: 0, y: 0, width: baseImageRect.size.width, height: baseImageRect.size.height)
+                
             }
             
             self.cellPhotoBrowserAnimator?.isImageDone = false
             self.isImageDone = false
             
             self.backImg.sd_setImage(with: URL(string: imageUrl!), placeholderImage: placeImage, options: .progressiveDownload, progress: { (receive, all, _) in
-                print("self.backImg.frame-->",self.backImg.frame)
+                //          print("self.backImg.frame-->",self.backImg.frame)
                 
             }) { (image, _, _, _) in
                 
@@ -53,6 +66,23 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
             }
             
         }
+    }
+    
+    typealias ImgCallBackType = (UIImage?)->()
+    
+    //获取原图
+    private func getOrangeImage(asset: PHAsset,callback: @escaping ImgCallBackType){
+        //获取原图
+        PHImageManager.default().requestImage(for: asset,
+                                              targetSize: PHImageManagerMaximumSize , contentMode: .aspectFill,
+                                              options: nil, resultHandler: {
+                                                (image, _: [AnyHashable : Any]?) in
+                                                if image != nil{
+                                                    callback(image)
+                                                }
+                                                
+        })
+        
     }
     
     //大图尺寸

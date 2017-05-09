@@ -1,12 +1,60 @@
-//  
+//
 //  UIView+Extension.swift
 
 
 import UIKit
 
+let kJDScreenWidth = UIScreen.main.bounds.size.width
+let kJDScreenHeight = UIScreen.main.bounds.size.height
+
 //  对UIView的扩展
 extension UIView {
-
+    
+    //获取当前控制器
+    func getCurrentVc() -> UIViewController? {
+        var next = self.next
+        //        var num = 0
+        repeat {
+            if (next?.isKind(of: UIViewController.self))! {
+                return next as? UIViewController
+            }
+            next = next?.next
+        }while (next != nil)
+        return nil
+    }
+    
+    func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,leftMargin: CGFloat,topMargin: CGFloat){
+        let middleM = (kJDScreenWidth - 2 * leftMargin - column * viW)/(column - 1)
+        let col  = CGFloat(index % Int(column)) //列
+        let row  = CGFloat(index / Int(column)) //行
+        let viewX = leftMargin +  col * (viW + middleM)
+        let viewY = topMargin + row * (viH + topMargin)
+        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
+    }
+    
+    //等分九宫格
+    func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
+        let margin = (kJDScreenWidth - column * viW)/(column + 1)
+        let col  = CGFloat(index % Int(column)) //列
+        let row  = CGFloat(index / Int(column)) //行
+        let viewX = margin +  col * (viW + margin)
+        let viewY = topMargin + row * (viH + topMargin)
+        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
+    }
+    
+    //等分九宫格
+    func jiuDengFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
+        let margin = (kJDScreenWidth - column * viW)/(column + 1)
+        let col  = CGFloat(index % Int(column)) //列
+        let row  = CGFloat(index / Int(column)) //行
+        
+        let viewX = margin +  col * (viW + margin)
+        let viewY = topMargin + row * (viH + topMargin)
+        
+        
+        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
+    }
+    
     //  扩展计算属性
     //  x坐标
     var x: CGFloat {
@@ -27,7 +75,7 @@ extension UIView {
     
     //  宽度
     var width: CGFloat {
-    
+        
         get {
             return frame.size.width
         } set {
@@ -98,7 +146,7 @@ extension UIView {
             self.frame = r
         }
     }
-
+    
     public var origin: CGPoint{
         get{
             return self.frame.origin
@@ -109,26 +157,70 @@ extension UIView {
         }
     }
     
-    //获取当前控制器
-    func getCurrentVc() -> UIViewController? {
-        var next = self.next
-        repeat {
-            if (next?.isKind(of: UIViewController.self))! {
-                return next as? UIViewController
-            }
-            next = next?.next
-        }while (next != nil)
-        return nil
-    }
-        
-    //等分九宫格
-    func jiuDengFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
-        let margin = (kJDScreenWidth - column * viW)/(column + 1)
-        let col  = CGFloat(index % Int(column)) //列
-        let row  = CGFloat(index / Int(column)) //行
-        let viewX = margin +  col * (viW + margin)
-        let viewY = topMargin + row * (viH + topMargin)
-        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
-    }
+}
 
+
+
+extension UIButton {
+    
+    enum btnType {
+        case normal
+        case selected
+        case disable
+        case highlighted
+    }
+    
+    convenience init(textColor: UIColor, fontSize: CGFloat) {
+        //  使用当前self调用其他构造函数
+        self.init()
+        
+        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        self.setTitleColor(textColor, for: .normal)
+    }
+    
+    
+    func setBackGroundColor(color: UIColor,type: btnType){
+        
+        let rect = CGRect(x: 0, y: 0, width: self.width, height: self.height)
+        UIGraphicsBeginImageContext(rect.size)
+        //        print(rect)
+        if rect.width<=0 || rect.height<=0 {
+            return
+        }
+        let  context: CGContext = (UIGraphicsGetCurrentContext())!
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        
+        if type == .normal{
+            self.setBackgroundImage(img, for: .normal)
+        }else if type == .selected{
+            self.setBackgroundImage(img, for: .selected)
+            
+        }else if type == .highlighted{
+            self.setBackgroundImage(img, for: .highlighted)
+            
+            
+        }
+        
+    }
+    
+}
+
+
+
+
+extension UIColor {
+    //类方法 static func
+    static func colorWithHex(hexColor:Int64)->UIColor{
+        
+        let red = ((CGFloat)((hexColor & 0xFF0000) >> 16))/255.0;
+        let green = ((CGFloat)((hexColor & 0xFF00) >> 8))/255.0;
+        let blue = ((CGFloat)(hexColor & 0xFF))/255.0;
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
+        
+    }
 }
