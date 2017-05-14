@@ -9,7 +9,7 @@ import UIKit
 class JDPhotoBrowserAnimator: NSObject {
     
     var imageRect = CGRect(x: 0 , y:0, width: kJDScreenWidth  , height:  kJDScreenHeight )
-
+    
     var isPresented : Bool = false
     var sourceImageView: UIImageView? // 来源view
     var endImageView: UIImageView? // 消失时候view
@@ -61,12 +61,12 @@ extension JDPhotoBrowserAnimator : UIViewControllerTransitioningDelegate{
 extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
     //动画时间
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.2
+        return 0.3
     }
     //动画方式
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-
+        
         isPresented ? animationForPresentedView(transitionContext) : animationForDismissView(transitionContext)
     }
     
@@ -113,7 +113,7 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         
         self.preSnapView = snapView
         self.isAniDone = false
-        UIView.animate(withDuration:0.2 , animations: {
+        UIView.animate(withDuration:0.3 , animations: {
             snapView?.frame = self.imageRect
             
         }, completion: { (_) in
@@ -123,7 +123,7 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             let indexPath = IndexPath(item: self.currentPage, section: 0)
             guard  presentedVc.collectionView.cellForItem(at: indexPath) != nil else { return }
             let cell = presentedVc.collectionView.cellForItem(at: indexPath) as! JDPhotoBrowserCell
-      
+            
             
             self.isImageDone = cell.isImageDone
             
@@ -152,7 +152,7 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
     
     //消失动画
     func animationForDismissView(_ transitionContext: UIViewControllerContextTransitioning){
-     
+        
         //上一级view
         let dismissView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
         let dismissVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! JDPhotoBrowser
@@ -163,7 +163,7 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         if dismissVc.collectionView.cellForItem(at: indexPath) == nil {
             //currentPage快速滑动一直不变 最后销毁了
             transitionContext.completeTransition(true)
-
+            
             return
         }
         
@@ -176,7 +176,7 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         transitionContext.containerView.addSubview(snapView!)
         dismissView.removeFromSuperview()
         
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             if self.endImageView == nil{
                 snapView?.frame = self.imageRect
             }else{
@@ -193,11 +193,11 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         }, completion: { (_) in
             snapView?.removeFromSuperview()
             transitionContext.completeTransition(true)
-
+            
         })
         
     }
-
+    
     
     
 }
