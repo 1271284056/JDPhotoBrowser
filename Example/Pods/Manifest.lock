@@ -1,5 +1,5 @@
 PODS:
-  - JDPhotoBrowser (0.1.0):
+  - JDPhotoBrowser (0.1.1):
     - SDWebImage (~> 4.0.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
@@ -13,7 +13,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  JDPhotoBrowser: 8c142be7b3ebc5f83dfcf6f47020bd44e78dd5e9
+  JDPhotoBrowser: a6df0d1b1ce382037c90623818a6504e82e77030
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
 PODFILE CHECKSUM: bd23d630744a8589d744bd9a8d20ee6d6268ea0e

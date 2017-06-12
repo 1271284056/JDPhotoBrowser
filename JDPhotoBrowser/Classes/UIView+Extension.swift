@@ -11,7 +11,7 @@ let kJDScreenHeight = UIScreen.main.bounds.size.height
 extension UIView {
     
     //获取当前控制器
-    func getCurrentVc() -> UIViewController? {
+     public func getCurrentVc() -> UIViewController? {
         var next = self.next
         //        var num = 0
         repeat {
@@ -23,7 +23,7 @@ extension UIView {
         return nil
     }
     
-    func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,leftMargin: CGFloat,topMargin: CGFloat){
+    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,leftMargin: CGFloat,topMargin: CGFloat){
         let middleM = (kJDScreenWidth - 2 * leftMargin - column * viW)/(column - 1)
         let col  = CGFloat(index % Int(column)) //列
         let row  = CGFloat(index / Int(column)) //行
@@ -33,7 +33,7 @@ extension UIView {
     }
     
     //等分九宫格
-    func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
+    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
         let margin = (kJDScreenWidth - column * viW)/(column + 1)
         let col  = CGFloat(index % Int(column)) //列
         let row  = CGFloat(index / Int(column)) //行
@@ -43,7 +43,7 @@ extension UIView {
     }
     
     //等分九宫格
-    func jiuDengFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
+    public func jiuDengFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
         let margin = (kJDScreenWidth - column * viW)/(column + 1)
         let col  = CGFloat(index % Int(column)) //列
         let row  = CGFloat(index / Int(column)) //行
@@ -57,7 +57,7 @@ extension UIView {
     
     //  扩展计算属性
     //  x坐标
-    var x: CGFloat {
+    public var x: CGFloat {
         get {
             return frame.origin.x
         } set {
@@ -65,7 +65,7 @@ extension UIView {
         }
     }
     //  y坐标
-    var y: CGFloat {
+    public var y: CGFloat {
         get {
             return frame.origin.y
         } set {
@@ -74,7 +74,7 @@ extension UIView {
     }
     
     //  宽度
-    var width: CGFloat {
+    public var width: CGFloat {
         
         get {
             return frame.size.width
@@ -85,7 +85,7 @@ extension UIView {
         
     }
     //  高度
-    var height: CGFloat {
+    public var height: CGFloat {
         
         get {
             return frame.size.height
@@ -97,7 +97,7 @@ extension UIView {
     }
     
     //  中心x
-    var centerX: CGFloat {
+    public var centerX: CGFloat {
         get {
             return center.x
         } set {
@@ -106,7 +106,7 @@ extension UIView {
     }
     
     //  中心y
-    var centerY: CGFloat {
+    public var centerY: CGFloat {
         get {
             return center.y
         } set {
@@ -115,7 +115,7 @@ extension UIView {
     }
     
     //  获取或者设置size大小
-    var size: CGSize {
+    public var size: CGSize {
         get {
             return frame.size
         } set {
@@ -163,14 +163,14 @@ extension UIView {
 
 extension UIButton {
     
-    enum btnType {
+    public enum btnType {
         case normal
         case selected
         case disable
         case highlighted
     }
     
-    convenience init(textColor: UIColor, fontSize: CGFloat) {
+    public convenience init(textColor: UIColor, fontSize: CGFloat) {
         //  使用当前self调用其他构造函数
         self.init()
         
@@ -179,7 +179,7 @@ extension UIButton {
     }
     
     
-    func setBackGroundColor(color: UIColor,type: btnType){
+    public func setBackGroundColor(color: UIColor,type: btnType){
         
         let rect = CGRect(x: 0, y: 0, width: self.width, height: self.height)
         UIGraphicsBeginImageContext(rect.size)
@@ -214,7 +214,7 @@ extension UIButton {
 
 extension UIColor {
     //类方法 static func
-    static func colorWithHex(hexColor:Int64)->UIColor{
+    public static func colorWithHex(hexColor:Int64)->UIColor{
         
         let red = ((CGFloat)((hexColor & 0xFF0000) >> 16))/255.0;
         let green = ((CGFloat)((hexColor & 0xFF00) >> 8))/255.0;

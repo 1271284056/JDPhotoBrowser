@@ -307,8 +307,10 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     }()
     
     lazy var  placeImage: UIImage = {
+        let bundle = Bundle(for: type(of: self))
+
+        let path = bundle.path(forResource: "blackall@2x", ofType: nil, inDirectory: "JDPhotoBrowser.bundle")
         let image = UIImage(named: "blackall")
-        
         return image!
     }()
     
