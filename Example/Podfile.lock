@@ -1,0 +1,16 @@
+PODS:
+  - JDPhotoBrowser (0.1.0)
+
+DEPENDENCIES:
+  - JDPhotoBrowser (from `../`)
+
+EXTERNAL SOURCES:
+  JDPhotoBrowser:
+    :path: ../
+
+SPEC CHECKSUMS:
+  JDPhotoBrowser: 3c785ddcb1d9e0d1e093778112dcee7a26b82ea3
+
+PODFILE CHECKSUM: bd23d630744a8589d744bd9a8d20ee6d6268ea0e
+
+COCOAPODS: 1.2.1

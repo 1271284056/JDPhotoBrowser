@@ -1,0 +1,6 @@
+framework module JDPhotoBrowser {
+  umbrella header "JDPhotoBrowser-umbrella.h"
+
+  export *
+  module * { export * }
+}
