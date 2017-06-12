@@ -1,9 +1,9 @@
 {
   "name": "JDPhotoBrowser",
   "version": "0.1.0",
-  "summary": "A short description of JDPhotoBrowser.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/1271284056/JDPhotoBrowser",
+  "summary": "图片浏览器 swift JDPhotoBrowser.",
+  "description": "一款高仿微信图片浏览器swift版本",
+  "homepage": "https://github.com/1271284056",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -18,5 +18,15 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "JDPhotoBrowser/Classes/**/*"
+  "source_files": "JDPhotoBrowser/Classes/**/*",
+  "resource_bundles": {
+    "JDPhotoBrowser": [
+      "JDPhotoBrowser/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "SDWebImage": [
+      "~> 4.0.0"
+    ]
+  }
 }

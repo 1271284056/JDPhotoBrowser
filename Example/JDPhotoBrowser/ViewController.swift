@@ -1,24 +1,28 @@
 //
 //  ViewController.swift
-//  JDPhotoBrowser
+//  PhotoBrowser
 //
-//  Created by 1271284056 on 06/12/2017.
-//  Copyright (c) 2017 1271284056. All rights reserved.
+//  Created by 张江东 on 2017/4/12.
+//  Copyright © 2017年 58kuaipai. All rights reserved.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let kbaseTag = 10
+    var imageArray = [UIImage]()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.view.backgroundColor = UIColor.white
+        
+        //        self.localImage()
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
+    
+    
 }
 
