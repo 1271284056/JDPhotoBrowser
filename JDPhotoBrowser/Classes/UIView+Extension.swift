@@ -147,7 +147,7 @@ extension UIView {
         }
     }
     
-    public var origin: CGPoint{
+     var origin: CGPoint{
         get{
             return self.frame.origin
         }

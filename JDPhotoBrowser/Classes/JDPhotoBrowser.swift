@@ -11,14 +11,14 @@ import Photos
 
  let jdkresuId = "kJDPhotoBrowserId"
 
-  class JDPhotoBrowser: UIViewController {
+public class JDPhotoBrowser: UIViewController {
     
     var imageRectDict: [IndexPath: CGRect] = [IndexPath: CGRect]()
 
     
     var isViewAppeared: Bool = false
     
-    override func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isViewAppeared = true
     }
@@ -40,8 +40,10 @@ import Photos
     
     //传回当前浏览器图片索引
     public var endPageIndexClosure: (( _ index: Int)->())?
+    
     var imageSourceTp: imageSourceType = .image
     var deleteButtonClosure: (( _ index: Int)->())?  //点击删除按钮时index
+    
     private lazy var indexLabel = UILabel()
 
     public var sourceImageView: UIImageView?{
@@ -77,7 +79,7 @@ import Photos
         }
     }
     
-    //1 url
+    //1111 url
     public init(selectIndex: Int, urls: [String]) {
         super.init(nibName: nil, bundle: nil)
         self.currentPage = selectIndex
@@ -131,7 +133,7 @@ import Photos
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
         self.view.addSubview(collectionView1)
@@ -261,14 +263,14 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     }
 
     
-      internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+      public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.dismiss(animated: true, completion: nil)
     }
     
-     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+     public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
     }
     
-     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x / scrollView.width)
         lastPage = currentPage!
         photoBrowserAnimator.currentPage = currentPage ?? 0

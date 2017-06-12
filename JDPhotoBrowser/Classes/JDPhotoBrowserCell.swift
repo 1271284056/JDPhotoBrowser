@@ -136,6 +136,8 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         
         scrollView.delegate = self
         addGesture()
+        
+        
     }
     
     private func addGesture(){
@@ -252,6 +254,13 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         return zoomRect;
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let img = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        img.image = theimage
+        self.contentView.addSubview(img)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -307,11 +316,24 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     }()
     
     lazy var  placeImage: UIImage = {
-        let bundle = Bundle(for: type(of: self))
+        
+        // currentBundle.loadNibNamed("", owner: nil, options: nil)
 
-        let path = bundle.path(forResource: "blackall@2x", ofType: nil, inDirectory: "JDPhotoBrowser.bundle")
-        let image = UIImage(named: "blackall")
+        let currentBundle = Bundle(for: type(of: self))  //JDPhotoBrowser.framework
+        var bundleName = (currentBundle.infoDictionary?["CFBundleName"] as! NSString).appending(".bundle")
+        let path = currentBundle.path(forResource: "blackall@2x.png", ofType: nil, inDirectory: bundleName)
+        let image = UIImage(contentsOfFile: path!)
         return image!
     }()
     
+    lazy var  theimage: UIImage = {
+        let currentBundle = Bundle(for: type(of: self))
+        
+        var bundleName = (currentBundle.infoDictionary?["CFBundleName"] as! NSString).appending(".bundle")
+        
+        let path = currentBundle.path(forResource: "123.png", ofType: nil, inDirectory: bundleName)
+        let image = UIImage(contentsOfFile: path!)
+
+        return image!
+    }()
 }
