@@ -121,8 +121,8 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             
             let presentedVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as! JDPhotoBrowser
             let indexPath = IndexPath(item: self.currentPage, section: 0)
-            guard  presentedVc.collectionView.cellForItem(at: indexPath) != nil else { return }
-            let cell = presentedVc.collectionView.cellForItem(at: indexPath) as! JDPhotoBrowserCell
+            guard  presentedVc.collectionView1.cellForItem(at: indexPath) != nil else { return }
+            let cell = presentedVc.collectionView1.cellForItem(at: indexPath) as! JDPhotoBrowserCell
             
             
             self.isImageDone = cell.isImageDone
@@ -160,14 +160,14 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         
         let indexPath = IndexPath(item: currentPage, section: 0)
         
-        if dismissVc.collectionView.cellForItem(at: indexPath) == nil {
+        if dismissVc.collectionView1.cellForItem(at: indexPath) == nil {
             //currentPage快速滑动一直不变 最后销毁了
             transitionContext.completeTransition(true)
             
             return
         }
         
-        let cell = dismissVc.collectionView.cellForItem(at: indexPath) as! JDPhotoBrowserCell
+        let cell = dismissVc.collectionView1.cellForItem(at: indexPath) as! JDPhotoBrowserCell
         
         let snapView = cell.backImg.snapshotView(afterScreenUpdates: true)
         

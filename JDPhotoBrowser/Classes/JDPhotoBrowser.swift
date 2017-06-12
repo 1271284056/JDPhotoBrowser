@@ -108,7 +108,7 @@ import Photos
         self.transitioningDelegate = photoBrowserAnimator
     }
     
-    private lazy var collectionView: UICollectionView = {
+     lazy var collectionView1: UICollectionView = {
 
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: kJDScreenWidth , height: kJDScreenHeight )
@@ -134,13 +134,13 @@ import Photos
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
-        self.view.addSubview(collectionView)
+        self.view.addSubview(collectionView1)
         let indexPath = IndexPath(item: (currentPage ?? 0), section: 0)
 
         DispatchQueue.main.async {
             if indexPath.row <= ((self.images?.count ?? 0) - 1) || indexPath.row <= ((self.urls?.count ?? 0) - 1) || indexPath.row <= ((self.asserts?.count ?? 0) - 1){
             
-            self.collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
+            self.collectionView1.scrollToItem(at: indexPath, at: .left, animated: false)
             }
         }
         
@@ -228,7 +228,7 @@ import Photos
 
 extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if self.imageSourceTp == .image {
             return (self.images?.count)!
@@ -239,7 +239,7 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
         }
     }
     
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: jdkresuId, for: indexPath as IndexPath) as! JDPhotoBrowserCell
         cell.scrollView.setZoomScale(1, animated: false)
@@ -261,7 +261,7 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     }
 
     
-     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+      internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -276,7 +276,7 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
                 
     }
 
-     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
+     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
         
 
         if self.endPageIndexClosure != nil {
