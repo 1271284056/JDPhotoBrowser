@@ -12,7 +12,9 @@ import Photos
  let jdkresuId = "kJDPhotoBrowserId"
 
 public class JDPhotoBrowser: UIViewController {
-    
+    fileprivate let imageViewSpace: CGFloat = 25
+    var collectionView1: UICollectionView!
+
     var imageRectDict: [IndexPath: CGRect] = [IndexPath: CGRect]()
 
     
@@ -22,11 +24,6 @@ public class JDPhotoBrowser: UIViewController {
         super.viewDidAppear(animated)
         isViewAppeared = true
     }
-    
-//    override var prefersStatusBarHidden: Bool{
-//        return true
-//    }
-//    
     
     enum imageSourceType {
         case image
@@ -109,25 +106,27 @@ public class JDPhotoBrowser: UIViewController {
         self.modalPresentationStyle = .custom
         self.transitioningDelegate = photoBrowserAnimator
     }
-    
-     lazy var collectionView1: UICollectionView = {
-
+    private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: kJDScreenWidth , height: kJDScreenHeight )
         layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        layout.scrollDirection = .horizontal
-        
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: kJDScreenWidth, height: kJDScreenHeight ), collectionViewLayout: layout)
-        collectionView.register(JDPhotoBrowserCell.self, forCellWithReuseIdentifier: jdkresuId)
-        collectionView.delegate = self;
-        collectionView.dataSource = self;
-        collectionView.backgroundColor = UIColor.black
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.alwaysBounceHorizontal = true
-        return collectionView
-    }()
+        layout.minimumLineSpacing = imageViewSpace
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, imageViewSpace)
+        var bounds = self.view.bounds
+        bounds.size.width += imageViewSpace
+        collectionView1 = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        collectionView1.backgroundColor = UIColor.black
+        collectionView1.showsVerticalScrollIndicator = false
+        collectionView1.showsVerticalScrollIndicator = false
+        collectionView1.delegate = self
+        collectionView1.dataSource = self
+        collectionView1.register(JDPhotoBrowserCell.self, forCellWithReuseIdentifier: jdkresuId)
+        collectionView1.isPagingEnabled = true
+        collectionView1.showsHorizontalScrollIndicator = false
+        collectionView1.alwaysBounceHorizontal = true
+        collectionView1.contentOffset = CGPoint(x: collectionView1.bounds.size.width * CGFloat(currentPage!), y: 0)
+    }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -136,6 +135,7 @@ public class JDPhotoBrowser: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
+        self.setupCollectionView()
         self.view.addSubview(collectionView1)
         let indexPath = IndexPath(item: (currentPage ?? 0), section: 0)
 
