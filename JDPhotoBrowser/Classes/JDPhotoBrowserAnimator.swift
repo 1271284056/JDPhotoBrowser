@@ -180,13 +180,14 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             if self.endImageView == nil{
                 snapView?.frame = self.imageRect
             }else{
-                
                 var theFrame: CGRect = (self.endImageView?.convert((self.endImageView?.bounds)!, to: self.endImageView?.getCurrentVc()?.view))!
-                
-                //根据导航栏是不是透明的来做
-                if self.endImageView?.getCurrentVc()?.navigationController != nil && self.endImageView?.getCurrentVc()?.navigationController?.navigationBar.isTranslucent == false{
-                    theFrame = CGRect(x: theFrame.origin.x, y: theFrame.origin.y + 64, width: theFrame.size.width, height: theFrame.size.height)
+                if (self.endImageView?.getCurrentVc()?.parent != nil){
+                    theFrame = (self.endImageView?.convert((self.endImageView?.bounds)!, to: self.endImageView?.getCurrentVc()?.parent?.view))!
                 }
+                //根据导航栏是不是透明的来做
+//                if self.endImageView?.getCurrentVc()?.navigationController != nil  && self.endImageView?.getCurrentVc()?.navigationController?.navigationBar.isTranslucent == false{
+//                    theFrame = CGRect(x: theFrame.origin.x, y: theFrame.origin.y + 64, width: theFrame.size.width, height: theFrame.size.height)
+//                }
                 
                 snapView?.frame = theFrame
             }

@@ -15,6 +15,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		CD254070A8567CDB5D62BF75 /* Pods_JDPhotoBrowser_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4CC6143536A628D82025321 /* Pods_JDPhotoBrowser_Tests.framework */; };
+		E65F4EDC1FCD4EC200592816 /* ViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65F4EDB1FCD4EC200592816 /* ViewControllerTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,12 +42,13 @@
 		607FACE51AFB9204008FA782 /* JDPhotoBrowser_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JDPhotoBrowser_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		6DC48FCCECBDF20ED066292C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		6DC48FCCECBDF20ED066292C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		70DEC1C5EEB45CF31986E2C9 /* Pods-JDPhotoBrowser_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JDPhotoBrowser_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-JDPhotoBrowser_Example/Pods-JDPhotoBrowser_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7E022E67FA6F80EE596D348C /* Pods-JDPhotoBrowser_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JDPhotoBrowser_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JDPhotoBrowser_Tests/Pods-JDPhotoBrowser_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		B4CC6143536A628D82025321 /* Pods_JDPhotoBrowser_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JDPhotoBrowser_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9947455B8388680587D40D9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		DBD3698C9FC2CF8D74B2FD04 /* JDPhotoBrowser.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = JDPhotoBrowser.podspec; path = ../JDPhotoBrowser.podspec; sourceTree = "<group>"; };
+		B9947455B8388680587D40D9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		DBD3698C9FC2CF8D74B2FD04 /* JDPhotoBrowser.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = JDPhotoBrowser.podspec; path = ../JDPhotoBrowser.podspec; sourceTree = "<group>"; };
+		E65F4EDB1FCD4EC200592816 /* ViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				E65F4EDB1FCD4EC200592816 /* ViewControllerTest.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -363,6 +366,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				E65F4EDC1FCD4EC200592816 /* ViewControllerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

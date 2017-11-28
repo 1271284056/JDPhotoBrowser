@@ -172,7 +172,6 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         backImg.addGestureRecognizer(pan)
     }
     
-    
     //拖拽
     @objc private func panDid(recognizer:UIPanGestureRecognizer) {
         let backImageVi = recognizer.view as! UIImageView
@@ -318,7 +317,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     lazy var  placeImage: UIImage = {
         
         // currentBundle.loadNibNamed("", owner: nil, options: nil)
-
+        
         let currentBundle = Bundle(for: type(of: self))  //JDPhotoBrowser.framework
         var bundleName = (currentBundle.infoDictionary?["CFBundleName"] as! NSString).appending(".bundle")
         let path = currentBundle.path(forResource: "blackall@2x.png", ofType: nil, inDirectory: bundleName)

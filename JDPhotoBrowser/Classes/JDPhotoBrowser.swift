@@ -17,7 +17,6 @@ public class JDPhotoBrowser: UIViewController {
 
     var imageRectDict: [IndexPath: CGRect] = [IndexPath: CGRect]()
 
-    
     var isViewAppeared: Bool = false
     
     override public func viewDidAppear(_ animated: Bool) {

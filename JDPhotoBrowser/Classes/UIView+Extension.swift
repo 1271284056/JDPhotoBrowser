@@ -13,7 +13,6 @@ extension UIView {
     //获取当前控制器
      public func getCurrentVc() -> UIViewController? {
         var next = self.next
-        //        var num = 0
         repeat {
             if (next?.isKind(of: UIViewController.self))! {
                 return next as? UIViewController
