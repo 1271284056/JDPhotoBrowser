@@ -9,16 +9,13 @@ import UIKit
 class JDPhotoBrowserAnimator: NSObject {
     
     var imageRect = CGRect(x: 0 , y:0, width: kJDScreenWidth  , height:  kJDScreenHeight )
-    
     var isPresented : Bool = false
     var sourceImageView: UIImageView? // 来源view
     var endImageView: UIImageView? // 消失时候view
     var currentPage: Int = 0
     var preSnapView : UIView?
     var isAniDone : Bool = false
-    
     var superVc: JDPhotoBrowser?
-    
     
     //加载进度提示框
     private lazy var progressView : UIActivityIndicatorView = {
@@ -65,14 +62,11 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
     }
     //动画方式
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
-        
         isPresented ? animationForPresentedView(transitionContext) : animationForDismissView(transitionContext)
     }
     
     //弹出动画
     func animationForPresentedView(_ transitionContext: UIViewControllerContextTransitioning){
-        
         //取出下一个 view 浏览器
         let presentedView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
         transitionContext.containerView.addSubview(presentedView)
@@ -81,14 +75,12 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             transitionContext.completeTransition(true)
             return
         }
-        
         let imgView = UIImageView()
         imgView.image = sourceImageView?.image
         //        imgView.frame = (sourceImageView?.frame)!
         
         let window = UIApplication.shared.keyWindow
         imgView.frame = (sourceImageView?.convert((sourceImageView?.bounds)!, to: window))!
-        
         self.getImageSize()
         
         let imgSize = imgView.image?.size
@@ -97,12 +89,9 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         imgView.width = (sourceImageView?.width)!
         imgView.height = (sourceImageView?.width)!/imgW! * imgH!
         let snapView = imgView.snapshotView(afterScreenUpdates: true)
-        
         //截图
-        
         snapView?.frame = imgView.frame
         transitionContext.containerView.addSubview(snapView!)
-        
         presentedView.alpha = 0.0
         transitionContext.containerView.backgroundColor = UIColor.black
         
@@ -123,8 +112,6 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             let indexPath = IndexPath(item: self.currentPage, section: 0)
             guard  presentedVc.collectionView1.cellForItem(at: indexPath) != nil else { return }
             let cell = presentedVc.collectionView1.cellForItem(at: indexPath) as! JDPhotoBrowserCell
-            
-            
             self.isImageDone = cell.isImageDone
             
             presentedView.alpha = 1.0
@@ -148,30 +135,21 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         imageRect = CGRect(x: 0, y: (kJDScreenHeight - actualImageH)/2, width: actualImageW, height: actualImageH)
     }
     
-    
-    
     //消失动画
     func animationForDismissView(_ transitionContext: UIViewControllerContextTransitioning){
-        
         //上一级view
         let dismissView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
         let dismissVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! JDPhotoBrowser
         
-        
         let indexPath = IndexPath(item: currentPage, section: 0)
-        
         if dismissVc.collectionView1.cellForItem(at: indexPath) == nil {
             //currentPage快速滑动一直不变 最后销毁了
             transitionContext.completeTransition(true)
-            
             return
         }
         
         let cell = dismissVc.collectionView1.cellForItem(at: indexPath) as! JDPhotoBrowserCell
-        
         let snapView = cell.backImg.snapshotView(afterScreenUpdates: true)
-        
-        
         snapView?.frame = imageRect
         transitionContext.containerView.addSubview(snapView!)
         dismissView.removeFromSuperview()
@@ -184,17 +162,12 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
                 if (self.endImageView?.getCurrentVc()?.parent != nil){
                     theFrame = (self.endImageView?.convert((self.endImageView?.bounds)!, to: self.endImageView?.getCurrentVc()?.parent?.view))!
                 }
-                //根据导航栏是不是透明的来做
-//                if self.endImageView?.getCurrentVc()?.navigationController != nil  && self.endImageView?.getCurrentVc()?.navigationController?.navigationBar.isTranslucent == false{
-//                    theFrame = CGRect(x: theFrame.origin.x, y: theFrame.origin.y + 64, width: theFrame.size.width, height: theFrame.size.height)
-//                }
                 
                 snapView?.frame = theFrame
             }
         }, completion: { (_) in
             snapView?.removeFromSuperview()
             transitionContext.completeTransition(true)
-            
         })
         
     }

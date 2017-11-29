@@ -14,9 +14,7 @@ import Photos
 public class JDPhotoBrowser: UIViewController {
     fileprivate let imageViewSpace: CGFloat = 25
     var collectionView1: UICollectionView!
-
     var imageRectDict: [IndexPath: CGRect] = [IndexPath: CGRect]()
-
     var isViewAppeared: Bool = false
     
     override public func viewDidAppear(_ animated: Bool) {
@@ -39,7 +37,6 @@ public class JDPhotoBrowser: UIViewController {
     
     var imageSourceTp: imageSourceType = .image
     var deleteButtonClosure: (( _ index: Int)->())?  //点击删除按钮时index
-    
     private lazy var indexLabel = UILabel()
 
     public var sourceImageView: UIImageView?{
@@ -55,7 +52,6 @@ public class JDPhotoBrowser: UIViewController {
         }
     } // 消失时候imageview
     
-    
     var lastPage: Int = 0
     ///静止后选中照片的索引
     var currentPage : Int?{
@@ -70,8 +66,6 @@ public class JDPhotoBrowser: UIViewController {
                 guard let kcount  = asserts?.count else { return  }
                 indexLabel.text = "\((currentPage ?? 0) + 1)/\(kcount)"
             }
-
-            
         }
     }
     
@@ -99,7 +93,6 @@ public class JDPhotoBrowser: UIViewController {
     public init(selectIndex: Int, asserts: [PHAsset]) {
         super.init(nibName: nil, bundle: nil)
         self.currentPage = selectIndex
-
         self.asserts = asserts
         self.imageSourceTp = .asserts
         self.modalPresentationStyle = .custom
@@ -159,12 +152,10 @@ public class JDPhotoBrowser: UIViewController {
         indexLabel.frame = CGRect(x: 0, y: kJDScreenHeight - 40, width: 80, height: 30)
         indexLabel.centerX = kJDScreenWidth * 0.5
         
-        
 //        saveBtn.frame = CGRect(x: kJDScreenWidth - 80, y: indexLabel.y, width: 50, height: 50)
 //        saveBtn.addTarget(self, action: #selector(saveImg), for: .touchUpInside)
 //        self.view.addSubview(saveBtn)
 
-        
         if  self.imageSourceTp == .image{
             guard let kcount  = images?.count else { return  }
             indexLabel.text = "\((currentPage ?? 0) + 1)/\(kcount)"
@@ -202,7 +193,6 @@ public class JDPhotoBrowser: UIViewController {
         return btn
     }()
     
-    
 //    @objc private func saveImg(){
 //        let indexPath = IndexPath(item: (currentPage ?? 0), section: 0)
 //        let cell = self.collectionView.cellForItem(at: indexPath) as! JDPhotoBrowserCell
@@ -223,14 +213,12 @@ public class JDPhotoBrowser: UIViewController {
 //        
 //        
 //    }
-    
 
 }
 
 extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
         if self.imageSourceTp == .image {
             return (self.images?.count)!
         }else if self.imageSourceTp == .url{
@@ -241,27 +229,20 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
      public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: jdkresuId, for: indexPath as IndexPath) as! JDPhotoBrowserCell
         cell.scrollView.setZoomScale(1, animated: false)
     
-        
         if self.imageSourceTp == .image {
             cell.image = self.images?[indexPath.item]
         }else if self.imageSourceTp == .url{
             cell.imageUrl = self.urls?[indexPath.item]
         }else if self.imageSourceTp == .asserts{
             cell.assert = self.asserts?[indexPath.item]
-
         }
-        
-        
         cell.cellPhotoBrowserAnimator = photoBrowserAnimator
-
         return cell
     }
 
-    
       public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -273,17 +254,12 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
         currentPage = Int(scrollView.contentOffset.x / scrollView.width)
         lastPage = currentPage!
         photoBrowserAnimator.currentPage = currentPage ?? 0
-        
-                
     }
 
      public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
-        
-
         if self.endPageIndexClosure != nil {
             endPageIndexClosure?(currentPage ?? 0)
         }
-        
     }
     
 }

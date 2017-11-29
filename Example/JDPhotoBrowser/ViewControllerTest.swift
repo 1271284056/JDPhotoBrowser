@@ -11,7 +11,6 @@ import JDPhotoBrowser
 
 class ViewControllerTest: UIViewController {
 
-
     let kbaseTag = 10
     var imageArray = [UIImage]()
     var imageViArray = [UIImageView]()

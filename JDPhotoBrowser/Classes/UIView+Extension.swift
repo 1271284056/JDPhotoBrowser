@@ -22,38 +22,6 @@ extension UIView {
         return nil
     }
     
-    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,leftMargin: CGFloat,topMargin: CGFloat){
-        let middleM = (kJDScreenWidth - 2 * leftMargin - column * viW)/(column - 1)
-        let col  = CGFloat(index % Int(column)) //列
-        let row  = CGFloat(index / Int(column)) //行
-        let viewX = leftMargin +  col * (viW + middleM)
-        let viewY = topMargin + row * (viH + topMargin)
-        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
-    }
-    
-    //等分九宫格
-    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
-        let margin = (kJDScreenWidth - column * viW)/(column + 1)
-        let col  = CGFloat(index % Int(column)) //列
-        let row  = CGFloat(index / Int(column)) //行
-        let viewX = margin +  col * (viW + margin)
-        let viewY = topMargin + row * (viH + topMargin)
-        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
-    }
-    
-    //等分九宫格
-    public func jiuDengFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
-        let margin = (kJDScreenWidth - column * viW)/(column + 1)
-        let col  = CGFloat(index % Int(column)) //列
-        let row  = CGFloat(index / Int(column)) //行
-        
-        let viewX = margin +  col * (viW + margin)
-        let viewY = topMargin + row * (viH + topMargin)
-        
-        
-        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
-    }
-    
     //  扩展计算属性
     //  x坐标
     public var x: CGFloat {
@@ -155,6 +123,35 @@ extension UIView {
             self.y = newValue.y
         }
     }
+        
+    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,leftMargin: CGFloat,topMargin: CGFloat){
+        let middleM = (kJDScreenWidth - 2 * leftMargin - column * viW)/(column - 1)
+        let col  = CGFloat(index % Int(column)) //列
+        let row  = CGFloat(index / Int(column)) //行
+        let viewX = leftMargin +  col * (viW + middleM)
+        let viewY = topMargin + row * (viH + topMargin)
+        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
+    }
+    
+    //等分九宫格
+    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
+        let margin = (kJDScreenWidth - column * viW)/(column + 1)
+        let col  = CGFloat(index % Int(column)) //列
+        let row  = CGFloat(index / Int(column)) //行
+        let viewX = margin +  col * (viW + margin)
+        let viewY = topMargin + row * (viH + topMargin)
+        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
+    }
+    
+    //等分九宫格
+    public func jiuDengFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
+        let margin = (kJDScreenWidth - column * viW)/(column + 1)
+        let col  = CGFloat(index % Int(column)) //列
+        let row  = CGFloat(index / Int(column)) //行
+        let viewX = margin +  col * (viW + margin)
+        let viewY = topMargin + row * (viH + topMargin)
+        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
+    }
     
 }
 
@@ -172,14 +169,12 @@ extension UIButton {
     public convenience init(textColor: UIColor, fontSize: CGFloat) {
         //  使用当前self调用其他构造函数
         self.init()
-        
         self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
         self.setTitleColor(textColor, for: .normal)
     }
     
     
     public func setBackGroundColor(color: UIColor,type: btnType){
-        
         let rect = CGRect(x: 0, y: 0, width: self.width, height: self.height)
         UIGraphicsBeginImageContext(rect.size)
         //        print(rect)
@@ -191,24 +186,16 @@ extension UIButton {
         context.fill(rect)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
-        
         if type == .normal{
             self.setBackgroundImage(img, for: .normal)
         }else if type == .selected{
             self.setBackgroundImage(img, for: .selected)
-            
         }else if type == .highlighted{
             self.setBackgroundImage(img, for: .highlighted)
-            
-            
         }
-        
     }
     
 }
-
-
 
 
 extension UIColor {
