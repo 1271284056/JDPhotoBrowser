@@ -151,27 +151,27 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     
     //双击
     @objc private func backImgTap2(recognizer: UITapGestureRecognizer){
-        let backImageVi = self.backImg
-        let touchPoint = recognizer.location(in: backImageVi)
+        var touchPoint = recognizer.location(in: self.scrollView)
+        if touchPoint.y < self.scrollView.JDheight/2 {
+            touchPoint.y = self.scrollView.JDheight/2
+        }
         
         UIView.animate(withDuration: 0.25) {
-            if backImageVi.width > self.imageRect.width{//缩小
+            if self.backImg.JDwidth > self.imageRect.width{//缩小
                 self.scrollView.contentInset = UIEdgeInsets(top: self.imageRect.origin.y, left: 0, bottom: 0, right: 0)
                 let zoomRect = self.zoomRectFor(scale: 1, center: touchPoint)
                 self.scrollView.zoom(to:zoomRect, animated: true)
-                self.scrollView.layoutIfNeeded()
             }else{//放大
                 let bili = kJDScreenHeight/self.imageRect.height
-                if bili > 2{
+                
+                if bili > 2{//填满
                     let zoomRect = self.zoomRectFor(scale: bili, center: touchPoint)
                     self.scrollView.zoom(to:zoomRect, animated: true)
                 }else{
                     let  zoomRect1 = self.zoomRectFor(scale: 2, center: touchPoint)
                     self.scrollView.zoom(to:zoomRect1, animated: true)
                 }
-                
                 self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                self.scrollView.layoutIfNeeded()
             }
         }
     }
@@ -190,7 +190,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
             return
         }
         self.scrollView.setZoomScale(totalScale, animated: true)
-        self.scrollView.layoutIfNeeded()
+//        self.scrollView.layoutIfNeeded()
     }
     
     func zoomRectFor(scale: CGFloat,center: CGPoint) -> CGRect{

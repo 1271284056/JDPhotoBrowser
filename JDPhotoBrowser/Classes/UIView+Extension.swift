@@ -24,7 +24,7 @@ extension UIView {
     
     //  扩展计算属性
     //  x坐标
-    public var x: CGFloat {
+    public var JDx: CGFloat {
         get {
             return frame.origin.x
         } set {
@@ -32,7 +32,7 @@ extension UIView {
         }
     }
     //  y坐标
-    public var y: CGFloat {
+    public var JDy: CGFloat {
         get {
             return frame.origin.y
         } set {
@@ -41,7 +41,7 @@ extension UIView {
     }
     
     //  宽度
-    public var width: CGFloat {
+    public var JDwidth: CGFloat {
         
         get {
             return frame.size.width
@@ -52,19 +52,16 @@ extension UIView {
         
     }
     //  高度
-    public var height: CGFloat {
-        
+    public var JDheight: CGFloat {
         get {
             return frame.size.height
         } set {
             frame.size.height = newValue
         }
-        
-        
     }
     
     //  中心x
-    public var centerX: CGFloat {
+    public var JDcenterX: CGFloat {
         get {
             return center.x
         } set {
@@ -73,7 +70,7 @@ extension UIView {
     }
     
     //  中心y
-    public var centerY: CGFloat {
+    public var JDcenterY: CGFloat {
         get {
             return center.y
         } set {
@@ -82,7 +79,7 @@ extension UIView {
     }
     
     //  获取或者设置size大小
-    public var size: CGSize {
+    public var JDsize: CGSize {
         get {
             return frame.size
         } set {
@@ -91,9 +88,9 @@ extension UIView {
     }
     
     /// 右边界的x值
-    public var maxX: CGFloat{
+    public var JDmaxX: CGFloat{
         get{
-            return self.x + self.width
+            return self.JDx + self.JDwidth
         }
         set{
             var r = self.frame
@@ -103,9 +100,9 @@ extension UIView {
     }
     
     // 下边界的y值
-    public var maxY: CGFloat{
+    public var JDmaxY: CGFloat{
         get{
-            return self.y + self.height
+            return self.JDy + self.JDheight
         }
         set{
             var r = self.frame
@@ -114,13 +111,13 @@ extension UIView {
         }
     }
     
-     var origin: CGPoint{
+     var JDorigin: CGPoint{
         get{
             return self.frame.origin
         }
         set{
-            self.x = newValue.x
-            self.y = newValue.y
+            self.JDx = newValue.x
+            self.JDy = newValue.y
         }
     }
         
@@ -175,7 +172,7 @@ extension UIButton {
     
     
     public func setBackGroundColor(color: UIColor,type: btnType){
-        let rect = CGRect(x: 0, y: 0, width: self.width, height: self.height)
+        let rect = CGRect(x: 0, y: 0, width: self.JDwidth, height: self.JDheight)
         UIGraphicsBeginImageContext(rect.size)
         //        print(rect)
         if rect.width<=0 || rect.height<=0 {

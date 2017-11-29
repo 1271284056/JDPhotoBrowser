@@ -150,7 +150,7 @@ public class JDPhotoBrowser: UIViewController {
         indexLabel.textColor = UIColor.white
         indexLabel.textAlignment = .center
         indexLabel.frame = CGRect(x: 0, y: kJDScreenHeight - 40, width: 80, height: 30)
-        indexLabel.centerX = kJDScreenWidth * 0.5
+        indexLabel.JDcenterX = kJDScreenWidth * 0.5
         
 //        saveBtn.frame = CGRect(x: kJDScreenWidth - 80, y: indexLabel.y, width: 50, height: 50)
 //        saveBtn.addTarget(self, action: #selector(saveImg), for: .touchUpInside)
@@ -173,14 +173,14 @@ public class JDPhotoBrowser: UIViewController {
         super.viewWillAppear(animated)
         //隐藏状态栏
         let statusBar = UIApplication.shared.value(forKey: "statusBar")
-        (statusBar as! UIView).y = -UIApplication.shared.statusBarFrame.size.height
+        (statusBar as! UIView).JDy = -UIApplication.shared.statusBarFrame.size.height
     }
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //恢复状态栏
         let statusBar = UIApplication.shared.value(forKey: "statusBar")
-        (statusBar as! UIView).y = 0
+        (statusBar as! UIView).JDy = 0
     }
     
     //删除
@@ -201,7 +201,7 @@ public class JDPhotoBrowser: UIViewController {
     
     private lazy var saveBtn : UIButton = {
         let btn: UIButton = UIButton()
-        btn.size = CGSize(width: 50, height: 50)
+        btn.JDsize = CGSize(width: 50, height: 50)
         btn.setBackGroundColor(color: UIColor.red, type: .normal)
         btn.setTitleColor(UIColor.red, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -266,7 +266,7 @@ extension JDPhotoBrowser :UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
      public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        currentPage = Int(scrollView.contentOffset.x / scrollView.width)
+        currentPage = Int(scrollView.contentOffset.x / scrollView.JDwidth)
         lastPage = currentPage!
         photoBrowserAnimator.currentPage = currentPage ?? 0
     }

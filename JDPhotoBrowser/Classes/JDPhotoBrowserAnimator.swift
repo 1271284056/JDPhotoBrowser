@@ -86,8 +86,8 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         let imgSize = imgView.image?.size
         let imgW = imgSize?.width
         let imgH = imgSize?.height
-        imgView.width = (sourceImageView?.width)!
-        imgView.height = (sourceImageView?.width)!/imgW! * imgH!
+        imgView.JDwidth = (sourceImageView?.JDwidth)!
+        imgView.JDheight = (sourceImageView?.JDwidth)!/imgW! * imgH!
         let snapView = imgView.snapshotView(afterScreenUpdates: true)
         //截图
         snapView?.frame = imgView.frame

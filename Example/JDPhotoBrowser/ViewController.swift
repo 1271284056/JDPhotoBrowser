@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         
         let vc = ViewControllerTest()
-        vc.view.y = 100
+        vc.view.JDy = 100
         self.addChildViewController(vc)
         self.view.addSubview(vc.view)
 
