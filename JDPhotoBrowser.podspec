@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
 s.name             = 'JDPhotoBrowser'
-s.version          = '0.3.2'
-s.summary          = '图片浏览器 swift JDPhotoBrowser.'
+s.version          = '0.4.0'
+s.summary          = '简洁的图片浏览器 swift版本 JDPhotoBrowser.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,12 +18,12 @@ s.summary          = '图片浏览器 swift JDPhotoBrowser.'
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
 s.description      = <<-DESC
-一款高仿微信图片浏览器swift版本
+一款高仿微信图片轻量级浏览器swift版本,简洁好用.
 DESC
 
-s.homepage         = 'https://github.com/1271284056'
+s.homepage         = 'https://github.com/1271284056/JDPhotoBrowser'
 # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-s.license          = { :type => 'MIT', :file => 'LICENSE' }
+s.license          =  MIT
 s.author           = { '1271284056' => '1271284056@qq.com' }
 s.source           = { :git => 'https://github.com/1271284056/JDPhotoBrowser.git', :tag => s.version.to_s }
 # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
