@@ -166,6 +166,21 @@ public class JDPhotoBrowser: UIViewController {
             guard let kcount  = asserts?.count else { return  }
             indexLabel.text = "\((currentPage ?? 0) + 1)/\(kcount)"
         }
+
+    }
+    
+    override public func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //隐藏状态栏
+        let statusBar = UIApplication.shared.value(forKey: "statusBar")
+        (statusBar as! UIView).y = -UIApplication.shared.statusBarFrame.size.height
+    }
+
+    override public func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //恢复状态栏
+        let statusBar = UIApplication.shared.value(forKey: "statusBar")
+        (statusBar as! UIView).y = 0
     }
     
     //删除
