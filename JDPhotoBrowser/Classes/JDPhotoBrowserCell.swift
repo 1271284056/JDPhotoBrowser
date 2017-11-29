@@ -20,6 +20,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     var minScale : CGFloat = 1
     var isImageDone: Bool = false
     var cellPhotoBrowserAnimator : JDPhotoBrowserAnimator?
+    var centerPoint: CGPoint?
     
     var image: UIImage?{
         didSet{
@@ -88,7 +89,6 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         }
         
         self.scrollView.contentSize = CGSize(width: imageRect.size.width, height: imageRect.size.height)
-        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.scrollView.contentInset = UIEdgeInsets(top: imageRect.origin.y, left: 0, bottom: 0, right: 0)
         backImg.frame = CGRect(x: 0, y: 0, width: imageRect.size.width, height: imageRect.size.height)
         backImg.layoutIfNeeded()
@@ -152,18 +152,22 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     //双击
     @objc private func backImgTap2(recognizer: UITapGestureRecognizer){
         var touchPoint = recognizer.location(in: self.scrollView)
-        if touchPoint.y < self.scrollView.JDheight/2 {
-            touchPoint.y = self.scrollView.JDheight/2
+        if touchPoint.y < 0 {
+            touchPoint.y = 0
         }
-        
-        UIView.animate(withDuration: 0.25) {
-            if self.backImg.JDwidth > self.imageRect.width{//缩小
-                self.scrollView.contentInset = UIEdgeInsets(top: self.imageRect.origin.y, left: 0, bottom: 0, right: 0)
-                let zoomRect = self.zoomRectFor(scale: 1, center: touchPoint)
-                self.scrollView.zoom(to:zoomRect, animated: true)
-            }else{//放大
-                let bili = kJDScreenHeight/self.imageRect.height
-                
+        let rootView = UIApplication.shared.keyWindow?.rootViewController?.view
+
+        touchPoint = self.scrollView.convert(touchPoint, to: rootView)
+
+        if self.backImg.JDwidth > self.imageRect.width{//缩小
+            self.scrollView.contentInset = UIEdgeInsets(top: self.imageRect.origin.y, left: 0, bottom: 0, right: 0)
+            UIView.animate(withDuration: 0.25) {
+            let zoomRect = self.zoomRectFor(scale: 1, center: touchPoint)
+            self.scrollView.zoom(to:zoomRect, animated: true)
+            }
+        }else{//放大
+            let bili = kJDScreenHeight/self.imageRect.height
+            UIView.animate(withDuration: 0.25) {
                 if bili > 2{//填满
                     let zoomRect = self.zoomRectFor(scale: bili, center: touchPoint)
                     self.scrollView.zoom(to:zoomRect, animated: true)
@@ -173,6 +177,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
                 }
                 self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             }
+          
         }
     }
     
@@ -266,4 +271,19 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         return image!
     }()
     
+}
+
+
+extension JDPhotoBrowserCell {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch = (touches as NSSet).anyObject() as! UITouch
+        if touch.tapCount == 1 {
+            
+        }else {
+            self.centerPoint = touch.location(in: touch.view)
+            print(11111)
+            
+            print(centerPoint!)
+        }
+    }
 }

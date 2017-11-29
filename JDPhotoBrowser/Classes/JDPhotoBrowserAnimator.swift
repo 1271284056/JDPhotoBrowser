@@ -158,18 +158,19 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
             if self.endImageView == nil{
                 snapView?.frame = self.imageRect
             }else{
-                var theFrame: CGRect = (self.endImageView?.convert((self.endImageView?.bounds)!, to: self.endImageView?.getCurrentVc()?.view))!
-                if (self.endImageView?.getCurrentVc()?.parent != nil){
-                    theFrame = (self.endImageView?.convert((self.endImageView?.bounds)!, to: self.endImageView?.getCurrentVc()?.parent?.view))!
-                }
-                
-                snapView?.frame = theFrame
+                snapView?.frame = self.convertRect(for: self.endImageView!)
             }
         }, completion: { (_) in
             snapView?.removeFromSuperview()
             transitionContext.completeTransition(true)
         })
         
+    }
+    
+    fileprivate func convertRect(for view: UIView) -> CGRect! {
+        let rootView = UIApplication.shared.keyWindow?.rootViewController?.view
+        let rect = view.superview?.convert(view.frame, to: rootView)
+        return rect!
     }
     
 }
