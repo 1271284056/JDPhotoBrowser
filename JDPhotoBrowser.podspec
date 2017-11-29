@@ -23,7 +23,7 @@ DESC
 
 s.homepage         = 'https://github.com/1271284056/JDPhotoBrowser'
 # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-s.license          =  MIT
+s.license          = { :type => 'MIT', :file => 'LICENSE' }
 s.author           = { '1271284056' => '1271284056@qq.com' }
 s.source           = { :git => 'https://github.com/1271284056/JDPhotoBrowser.git', :tag => s.version.to_s }
 # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
