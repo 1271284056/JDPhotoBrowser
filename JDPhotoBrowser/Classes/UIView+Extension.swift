@@ -120,25 +120,6 @@ extension UIView {
             self.JDy = newValue.y
         }
     }
-        
-    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,leftMargin: CGFloat,topMargin: CGFloat){
-        let middleM = (kJDScreenWidth - 2 * leftMargin - column * viW)/(column - 1)
-        let col  = CGFloat(index % Int(column)) //列
-        let row  = CGFloat(index / Int(column)) //行
-        let viewX = leftMargin +  col * (viW + middleM)
-        let viewY = topMargin + row * (viH + topMargin)
-        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
-    }
-    
-    //等分九宫格
-    public func jiuFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
-        let margin = (kJDScreenWidth - column * viW)/(column + 1)
-        let col  = CGFloat(index % Int(column)) //列
-        let row  = CGFloat(index / Int(column)) //行
-        let viewX = margin +  col * (viW + margin)
-        let viewY = topMargin + row * (viH + topMargin)
-        self.frame = CGRect(x: viewX, y: viewY, width: viW, height: viH)
-    }
     
     //等分九宫格
     public func jiuDengFrame(index: Int,column: CGFloat,viW: CGFloat,viH: CGFloat,topMargin: CGFloat){
@@ -151,7 +132,6 @@ extension UIView {
     }
     
 }
-
 
 
 extension UIButton {
@@ -169,7 +149,6 @@ extension UIButton {
         self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
         self.setTitleColor(textColor, for: .normal)
     }
-    
     
     public func setBackGroundColor(color: UIColor,type: btnType){
         let rect = CGRect(x: 0, y: 0, width: self.JDwidth, height: self.JDheight)
@@ -194,16 +173,3 @@ extension UIButton {
     
 }
 
-
-extension UIColor {
-    //类方法 static func
-    public static func colorWithHex(hexColor:Int64)->UIColor{
-        
-        let red = ((CGFloat)((hexColor & 0xFF0000) >> 16))/255.0;
-        let green = ((CGFloat)((hexColor & 0xFF00) >> 8))/255.0;
-        let blue = ((CGFloat)(hexColor & 0xFF))/255.0;
-        
-        return UIColor(red: red, green: green, blue: blue, alpha: 1)
-        
-    }
-}

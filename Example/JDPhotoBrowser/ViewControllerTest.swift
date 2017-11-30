@@ -29,11 +29,7 @@ class ViewControllerTest: UIViewController {
         self.view.backgroundColor = UIColor.white
         
         self.urlImage() //网络图片
-        //        self.localImage()
-        
     }
-    
-    
     
     //--------网络图片 使用方法
     func urlImage(){
@@ -64,6 +60,7 @@ class ViewControllerTest: UIViewController {
     }
     
     // ---------- 本地图片
+    /*
     func localImage(){
         for index in 0..<4{
             let imageVi = UIImageView()
@@ -77,7 +74,6 @@ class ViewControllerTest: UIViewController {
             imageVi.contentMode = .scaleAspectFill
             imageVi.clipsToBounds = true
             imageVi.image = UIImage(named: "0\(index+1)")
-            
             imageArray.append(imageVi.image!)
         }
     }
@@ -95,8 +91,8 @@ class ViewControllerTest: UIViewController {
             photoB.endImageView = self?.imageViArray[index]
         }
         self.present(photoB, animated: true, completion: nil)
-        
     }
+ */
 
 
 }

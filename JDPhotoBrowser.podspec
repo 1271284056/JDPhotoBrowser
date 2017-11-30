@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
 s.name             = 'JDPhotoBrowser'
-s.version          = '0.4.5'
-s.summary          = '简洁的图片浏览器 swift JDPhotoBrowser.'
+s.version          = '0.4.6'
+s.summary          = '简洁的图片浏览器 swift版本'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

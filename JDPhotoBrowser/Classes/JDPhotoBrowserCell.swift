@@ -10,7 +10,6 @@ import UIKit
 import Photos
 import SDWebImage
 
-
 class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UIScrollViewDelegate{
     
     var imageRect = CGRect(x: 0 , y:0, width: kJDScreenWidth  , height:  kJDScreenHeight )
@@ -21,7 +20,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
     var isImageDone: Bool = false
     var cellPhotoBrowserAnimator : JDPhotoBrowserAnimator?
     var centerPoint: CGPoint?
-    
+
     var image: UIImage?{
         didSet{
             backImg.image = image
@@ -87,7 +86,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         if actualImageH > kJDScreenHeight {
             imageRect = CGRect(x: 0, y: 0, width: kJDScreenWidth, height: kJDScreenHeight)
         }
-        
+        scrollView.frame = CGRect(x: 0, y: 0, width: kJDScreenWidth, height: kJDScreenHeight)
         self.scrollView.contentSize = CGSize(width: imageRect.size.width, height: imageRect.size.height)
         self.scrollView.contentInset = UIEdgeInsets(top: imageRect.origin.y, left: 0, bottom: 0, right: 0)
         backImg.frame = CGRect(x: 0, y: 0, width: imageRect.size.width, height: imageRect.size.height)
@@ -134,7 +133,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         pan.delegate = self
         backImg.addGestureRecognizer(pan)
     }
-    
+
     //拖拽
     @objc private func panDid(recognizer:UIPanGestureRecognizer) {
         let backImageVi = recognizer.view as! UIImageView
@@ -177,7 +176,6 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
                 }
                 self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             }
-          
         }
     }
     
@@ -187,7 +185,7 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         let scale = recognizer.scale
         self.totalScale *= scale
         recognizer.scale = 1.0;
-        
+
         if totalScale > maxScale {
             return
         }
@@ -195,9 +193,9 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
             return
         }
         self.scrollView.setZoomScale(totalScale, animated: true)
-//        self.scrollView.layoutIfNeeded()
     }
     
+
     func zoomRectFor(scale: CGFloat,center: CGPoint) -> CGRect{
         let imgW = imageRect.size.width
         let imgH = imageRect.size.height
@@ -229,6 +227,13 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
         }else if totalScale < minScale{
             totalScale = minScale
         }
+        
+        if self.scrollView.contentSize.height >= kJDScreenHeight {
+            self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }else {
+            self.scrollView.contentInset = UIEdgeInsets(top: self.imageRect.origin.y, left: 0, bottom: 0, right: 0)
+        }
+        
     }
     
     // ------懒加载------
@@ -274,16 +279,4 @@ class JDPhotoBrowserCell: UICollectionViewCell,UIGestureRecognizerDelegate ,UISc
 }
 
 
-extension JDPhotoBrowserCell {
-    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch: UITouch = (touches as NSSet).anyObject() as! UITouch
-        if touch.tapCount == 1 {
-            
-        }else {
-            self.centerPoint = touch.location(in: touch.view)
-            print(11111)
-            
-            print(centerPoint!)
-        }
-    }
-}
+

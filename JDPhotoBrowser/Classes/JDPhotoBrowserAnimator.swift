@@ -77,7 +77,6 @@ extension JDPhotoBrowserAnimator : UIViewControllerAnimatedTransitioning{
         }
         let imgView = UIImageView()
         imgView.image = sourceImageView?.image
-        //        imgView.frame = (sourceImageView?.frame)!
         
         let window = UIApplication.shared.keyWindow
         imgView.frame = (sourceImageView?.convert((sourceImageView?.bounds)!, to: window))!

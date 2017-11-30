@@ -130,10 +130,8 @@ public class JDPhotoBrowser: UIViewController {
         self.setupCollectionView()
         self.view.addSubview(collectionView1)
         let indexPath = IndexPath(item: (currentPage ?? 0), section: 0)
-
         DispatchQueue.main.async {
-            if indexPath.row <= ((self.images?.count ?? 0) - 1) || indexPath.row <= ((self.urls?.count ?? 0) - 1) || indexPath.row <= ((self.asserts?.count ?? 0) - 1){
-            
+            if indexPath.row <= ((self.images?.count ?? 1) - 1) || indexPath.row <= ((self.urls?.count ?? 1) - 1) || indexPath.row <= ((self.asserts?.count ?? 1) - 1){
             self.collectionView1.scrollToItem(at: indexPath, at: .left, animated: false)
             }
         }
